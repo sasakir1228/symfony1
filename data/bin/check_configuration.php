@@ -67,7 +67,7 @@ if (is_cli())
 
 // mandatory
 echo "\n** Mandatory requirements **\n\n";
-check(version_compare(phpversion(), '5.1.3', '>='), 'requires PHP >= 5.1.3', 'Current version is '.phpversion(), true);
+check(version_compare(phpversion(), '5.3.1', '>='), sprintf('PHP version is at least 5.3.1 (%s)', phpversion()), 'Current version is '.phpversion(), true);
 check(!ini_get('zend.ze1_compatibility_mode'), 'php.ini: requires zend.ze1_compatibility_mode set to off', sprintf('Set it to off in php.ini (%s)', get_ini_path()), true);
 
 // warnings
@@ -89,8 +89,6 @@ check($accelerator, 'has a PHP accelerator', 'Install a PHP accelerator (highly 
 check(!ini_get('magic_quotes_gpc'), 'php.ini: magic_quotes_gpc set to off', 'Set it to off in php.ini', false);
 check(!ini_get('register_globals'), 'php.ini: register_globals set to off', 'Set it to off in php.ini', false);
 check(!ini_get('session.auto_start'), 'php.ini: session.auto_start set to off', 'Set it to off in php.ini', false);
-
-check(version_compare(phpversion(), '5.2.9', '!='), 'PHP version is not 5.2.9', 'PHP 5.2.9 broke array_unique() and sfToolkit::arrayDeepMerge(). Use 5.2.10 instead [Ticket #6211]', false);
 
 if (!is_cli())
 {
