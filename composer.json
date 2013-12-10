@@ -7,5 +7,8 @@
             "email": "fabien@symfony.com"
         }
     ],
+    "require": {
+	      "swiftmailer/swiftmailer": ">=5.0.0"
+	  },
     "license": "MIT"
 }
