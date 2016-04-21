@@ -45,6 +45,7 @@ class Column extends XMLElement {
 	private $description;
 	private $phpName = null;
 	private $phpNamingMethod;
+	private $phpVisiblity = 'public';
 	private $isNotNull = false;
 	private $size;
 
@@ -149,6 +150,11 @@ class Column extends XMLElement {
 			$this->phpName = $this->getAttribute("phpName");
 			$this->phpType = $this->getAttribute("phpType");
 			$this->peerName = $this->getAttribute("peerName");
+			$this->phpVisiblity = $this->getAttribute('phpVisibility');
+
+			if (!in_array($this->phpVisiblity, ['public', 'protected', 'private'])) {
+				$this->phpVisiblity = 'public';
+			}
 
 			if (empty($this->phpType)) {
 				$this->phpType = null;
@@ -917,5 +923,16 @@ class Column extends XMLElement {
 		$sb .= $this->getNotNullString() . " ";
 		$sb .= $this->getAutoIncrementString();
 		return trim($sb);
+	}
+
+	/**
+	 * Return the desired visibility for the column. This can be: 'public',
+	 * 'protected' or 'private'.
+	 *
+	 * @return string
+	 */
+	public function getPhpVisiblility()
+	{
+		return $this->phpVisiblity;
 	}
 }
