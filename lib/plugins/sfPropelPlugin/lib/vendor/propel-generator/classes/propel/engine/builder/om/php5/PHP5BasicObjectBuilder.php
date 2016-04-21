@@ -324,6 +324,7 @@ abstract class ".$this->getClassname()." extends ".ClassTools::classname($this->
 	protected function addTemporalAccessor(&$script, $col)
 	{
 		$cfc=$col->getPhpName();
+		$vis=$col->getPhpVisiblility();
 		$clo=strtolower($col->getName());
 
 		// these default values are based on the Creole defaults
@@ -349,7 +350,7 @@ abstract class ".$this->getClassname()." extends ".ClassTools::classname($this->
 	 * @return     mixed Formatted date/time value as string or integer unix timestamp (if format is NULL).
 	 * @throws     PropelException - if unable to convert the date/time to timestamp.
 	 */
-	public function get$cfc(\$format = ".var_export($defaultfmt, true)."";
+	$vis function get$cfc(\$format = ".var_export($defaultfmt, true)."";
 		if ($col->isLazyLoad()) $script .= ", \$con = null";
 		$script .= ")
 	{
@@ -393,6 +394,7 @@ abstract class ".$this->getClassname()." extends ".ClassTools::classname($this->
 	protected function addGenericAccessor(&$script, $col)
 	{
 		$cfc=$col->getPhpName();
+		$vis=$col->getPhpVisiblility();
 		$clo=strtolower($col->getName());
 
 		$script .= "
@@ -401,7 +403,7 @@ abstract class ".$this->getClassname()." extends ".ClassTools::classname($this->
 	 * ".$col->getDescription()."
 	 * @return     ".$col->getPhpNative()."
 	 */
-	public function get$cfc(";
+	$vis function get$cfc(";
 		if ($col->isLazyLoad()) $script .= "\$con = null";
 		$script .= ")
 	{
@@ -491,6 +493,7 @@ abstract class ".$this->getClassname()." extends ".ClassTools::classname($this->
 	protected function addMutatorOpen(&$script, Column $col)
 	{
 		$cfc=$col->getPhpName();
+		$vis=$col->getPhpVisiblility();
 		$clo=strtolower($col->getName());
 
 		$script .= "
@@ -500,7 +503,7 @@ abstract class ".$this->getClassname()." extends ".ClassTools::classname($this->
 	 * @param      ".$col->getPhpNative()." \$v new value
 	 * @return     void
 	 */
-	public function set$cfc(\$v)
+	$vis function set$cfc(\$v)
 	{
 ";
 		if ($col->isLazyLoad()) {
