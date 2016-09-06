@@ -927,34 +927,51 @@ class sfWebRequest extends sfRequest
     $this->relativeUrlRoot = $value;
   }
 
-  /**
-   * Splits an HTTP header for the current web request.
-   *
-   * @param string $header  Header to split
-   */
-  public function splitHttpAcceptHeader($header)
+/**
+ * Splits an HTTP header for the current web request.
+ *
+ * @param string $header  Header to split
+ */
+public function splitHttpAcceptHeader($header)
+{
+  $i = 0;
+  $values = array();
+  foreach (array_filter(explode(',', $header)) as $value)
   {
-    $values = array();
-    foreach (array_filter(explode(',', $header)) as $value)
+    // Cut off any q-value that might come after a semi-colon
+    if ($pos = strpos($value, ';'))
     {
-      // Cut off any q-value that might come after a semi-colon
-      if ($pos = strpos($value, ';'))
-      {
-        $q     = (float) trim(substr($value, $pos + 3));
-        $value = trim(substr($value, 0, $pos));
-      }
-      else
-      {
-        $q = 1;
-      }
-
-      $values[$value] = $q;
+      $q     = (float) trim(substr($value, $pos + 3));
+      $value = trim(substr($value, 0, $pos));
+    }
+    else
+    {
+      $q = 1;
     }
 
-    arsort($values);
-
-    return array_keys($values);
+    $values[$value] = array($q, $i++);
   }
+  /**
+   * Implement reverse stable sort instead of arsort 
+   */
+  uasort($values, function ($a, $b) {      
+    if ($a[0] == $b[0]) {          
+        // Can not be same since we used $i++
+      if ($a[1] < $b[1]) {
+          return 1;
+      } else {
+          return -1;
+      }
+    } elseif ($a[0] < $b[0]) {      
+      return 1;
+    } else {
+      return -1;
+    }
+  });
+  
+  return array_keys($values);
+}
+  
 
   /**
    * Returns the array that contains all request information ($_SERVER or $_ENV).

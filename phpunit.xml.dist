@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit colors                 = "true"
+         bootstrap              = "vendor/autoload.php"
+         backupGlobals          = "false"
+         backupStaticAttributes = "false">
+
+    <testsuites>
+        <testsuite name="Symfony1 test" >
+            <directory>./test/</directory>
+        </testsuite>
+    </testsuites>
+    <filter>
+        <whitelist>
+            <directory>./lib</directory>
+        </whitelist>
+    </filter>
+</phpunit>
