@@ -99,11 +99,14 @@ class sfYamlInline
   static protected function dumpArray($value)
   {
     // array
+    $fn = function ($v, $w) {
+        return ((int) $v) + ((int) $w);
+    };
     $keys = array_keys($value);
     if (
       (1 == count($keys) && '0' == $keys[0])
       ||
-      (count($keys) > 1 && array_reduce($keys, create_function('$v,$w', 'return ((int) $v) + ((int) $w);'), 0) == count($keys) * (count($keys) - 1) / 2))
+      (count($keys) > 1 && array_reduce($keys, $fn, 0) == count($keys) * (count($keys) - 1) / 2))
     {
       $output = array();
       foreach ($value as $val)
