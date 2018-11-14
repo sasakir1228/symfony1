@@ -530,14 +530,12 @@ class sfWebRequest extends sfRequest
     }
 
     $this->filesInfos = $this->convertFileInformation($_FILES);
-
     // merge POST parameters
     if (get_magic_quotes_gpc())
     {
       $_POST = sfToolkit::stripslashesDeep((array) $_POST);
     }
     $this->getParameterHolder()->addByRef($_POST);
-
     // move symfony parameters in a protected namespace (parameters prefixed with _sf_)
     foreach ($this->getParameterHolder()->getAll() as $key => $value)
     {

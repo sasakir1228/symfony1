@@ -8,6 +8,11 @@
  * file that was distributed with this source code.
  */
 
+if ($argv[1]=="cc" && file_exists("/opt/web/html/nocc")) {
+  echo "cc kinsi!!!\n";
+  exit;
+}
+
 if (!isset($sf_symfony_lib_dir))
 {
   die("You must launch symfony command line with the symfony script\n");
